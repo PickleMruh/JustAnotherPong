@@ -1,6 +1,7 @@
 #include "ball.h"
 
 Ball::Ball(float startX, float startY)
+	:xDir(1), yDir(1)
 {
 	ballPosition.x = startX;
 	ballPosition.y = startY;
@@ -24,15 +25,20 @@ float Ball::getVelocityX()
 	return xspeed;
 }
 
+void Ball::boostSpeed()
+{
+	xspeed = xspeed * 1.2f;
+	yspeed = yspeed * 1.2f;
+}
+
 void Ball::sideBounce()
 {
-	xspeed = xspeed * -1;
+	xDir = xDir * -1;
 }
 
 void Ball::padBounce()
 {
-	ballPosition.y -= (yspeed * 30);
-	yspeed = yspeed * -1;
+	yDir = yDir * -1;
 }
 
 void Ball::hitBottom()
@@ -43,8 +49,8 @@ void Ball::hitBottom()
 
 void Ball::updatePosition()
 {
-	ballPosition.x += xspeed;
-	ballPosition.y += yspeed;
+	ballPosition.x += xDir * xspeed;
+	ballPosition.y += yDir * yspeed;
 
 	ballBody.setPosition(ballPosition);
 }

@@ -28,6 +28,8 @@ int main()
 				paletka.moveLeft();
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 				paletka.moveRight();
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				pilka.boostSpeed();
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 				gameWindow.close();
 

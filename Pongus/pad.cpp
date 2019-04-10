@@ -21,12 +21,12 @@ sf::RectangleShape Pad::getShape()
 
 void Pad::moveLeft()
 {
-	padPosition.x -= padSpeed;
+	padPosition.x -= padSpeed * xDir;
 }
 
 void Pad::moveRight()
 {
-	padPosition.x += padSpeed;
+	padPosition.x += padSpeed * xDir;
 }
 
 void Pad::updatePosition()
