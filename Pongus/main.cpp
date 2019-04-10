@@ -5,10 +5,10 @@
 
 int main()
 {
-	float windowWidthX = 400.f;
-	float windowHeightY = 600.f; 
-	Pad paletka(windowWidthX/2, windowHeightY - 100.f);
-	Ball pilka(windowWidthX / 2, windowHeightY /2);
+	int windowWidthX = 400;
+	int windowHeightY = 600; 
+	Pad paletka(float(windowWidthX)/2, float(windowHeightY) - 100);
+	Ball pilka(float(windowWidthX) / 2, float(windowHeightY) /2);
 	sf::RenderWindow gameWindow(sf::VideoMode(windowWidthX, windowHeightY), "Classicus Pongus");
 	while (gameWindow.isOpen())
 	{
@@ -39,6 +39,11 @@ int main()
 
 		if (pilka.getPosition().intersects(paletka.getPosition()))
 			pilka.padBounce();
+
+		if (paletka.getPosition().left < 0)
+			paletka.moveRight();
+		if (paletka.getPosition().left + 100 > windowWidthX)
+			paletka.moveLeft();
 
 		paletka.updatePosition();
 		pilka.updatePosition();
