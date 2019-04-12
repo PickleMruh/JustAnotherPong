@@ -5,8 +5,8 @@ class Ball
 {
 	sf::Vector2f ballPosition;
 	sf::RectangleShape ballBody;
-	float xspeed = 0.3f;
-	float yspeed = 0.3f;
+	float xspeed = 1.2f;
+	float yspeed = 1.2f;
 	int xDir;
 	int yDir;
 public:

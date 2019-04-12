@@ -24,10 +24,14 @@ int main()
 		{
 			if (action.type == sf::Event::Closed)
 				gameWindow.close();
+
+			//pad movement
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 				paletka.moveLeft();
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 				paletka.moveRight();
+
+
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 				pilka.boostSpeed();
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
