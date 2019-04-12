@@ -10,10 +10,10 @@ int main()
 	sf::Time ups = sf::seconds(1.f / 60.f);
 
 	int windowWidthX = 400;
-	int windowHeightY = 600; 
+	int windowHeightY = 600;
+
 	Pad paletka(float(windowWidthX)/2, float(windowHeightY) - 50);
 	Ball pilka(float(windowWidthX) / 2, float(windowHeightY) /2);
-
 	//Mein Loop
 	sf::RenderWindow gameWindow(sf::VideoMode(windowWidthX, windowHeightY), "Classicus Pongus");
 	while (gameWindow.isOpen())
@@ -24,14 +24,6 @@ int main()
 		{
 			if (action.type == sf::Event::Closed)
 				gameWindow.close();
-
-			//pad movement
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-				paletka.moveLeft();
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-				paletka.moveRight();
-
-
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 				pilka.boostSpeed();
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -42,6 +34,11 @@ int main()
 		while (accumulator > ups)
 		{
 			accumulator -= ups;
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+				paletka.moveLeft();
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+				paletka.moveRight();
+
 			//Logic
 
 			if (pilka.getPosition().top > windowHeightY)

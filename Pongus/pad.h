@@ -5,7 +5,7 @@ class Pad
 {
 	sf::Vector2f padPosition; 
 	sf::RectangleShape padBody;
-	float padSpeed = 15.0f;
+	float padSpeed = 10.0f;
 	float xDir = 1;
 public:
 	Pad(float, float);
