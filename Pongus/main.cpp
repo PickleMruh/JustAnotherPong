@@ -4,6 +4,7 @@
 #include "ball.h"
 #include "pad.h"
 
+
 int main()
 {
 	sf::Clock timer;
@@ -62,7 +63,8 @@ int main()
 			if ((pilka.getPosition().y +10) > paletka.getPosition().y) //hit the pad
 			{
 				if (pilka.getPosition().x + 10 > paletka.getPosition().x && pilka.getPosition().x < paletka.getPosition().x + 100)
-				{
+				{		
+
 					pilka.padBounce();
 					pilka.boostSpeed();
 				}
@@ -90,3 +92,4 @@ int main()
 		accumulator += timer.restart();
 	}
 }
+
