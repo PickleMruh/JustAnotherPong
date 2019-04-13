@@ -9,7 +9,7 @@ class Pad
 	float xDir = 1;
 public:
 	Pad(float, float);
-	sf::FloatRect getPosition();
+	sf::Vector2f getPosition();
 	sf::RectangleShape getShape();
 
 	void moveLeft();

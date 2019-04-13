@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include <cmath>
 #include "ball.h"
 #include "pad.h"
@@ -35,28 +36,46 @@ int main()
 		{
 			accumulator -= ups;
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			{
 				paletka.moveLeft();
+			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
 				paletka.moveRight();
+			}
 
 			//Logic
 
-			if (pilka.getPosition().top > windowHeightY)
+			if (pilka.getPosition().y > windowHeightY) //aut
+			{
 				pilka.hitBottom();
+			}
 
-			if (pilka.getPosition().left < 0 || pilka.getPosition().left + 10 > windowWidthX)
+			if (pilka.getPosition().x < 0 || pilka.getPosition().x + 10 > windowWidthX) //side bounce
+			{
 				pilka.sideBounce();
-
-			if (pilka.getPosition().top < 0)
+			}
+			if (pilka.getPosition().y < 0) //topbounce
+			{
 				pilka.padBounce();
-
-			if (pilka.getPosition().intersects(paletka.getPosition()))
-				pilka.padBounce();
-
-			if (paletka.getPosition().left < 0)
+			}
+			if ((pilka.getPosition().y +10) > paletka.getPosition().y) //hit the pad
+			{
+				if (pilka.getPosition().x + 10 > paletka.getPosition().x && pilka.getPosition().x < paletka.getPosition().x + 100)
+				{
+					pilka.padBounce();
+					pilka.boostSpeed();
+				}
+			}
+			if (paletka.getPosition().x < 0)
+			{
 				paletka.moveRight();
-			if (paletka.getPosition().left + 95 > windowWidthX)
+			}
+			if (paletka.getPosition().x + 95 > windowWidthX)
+			{
 				paletka.moveLeft();
+			}
+
 
 			paletka.updatePosition();
 			pilka.updatePosition();

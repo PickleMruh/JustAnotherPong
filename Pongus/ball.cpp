@@ -10,9 +10,9 @@ Ball::Ball(float startX, float startY)
 	ballBody.setPosition(ballPosition);
 }
 
-sf::FloatRect Ball::getPosition()
+sf::Vector2f Ball::getPosition()
 {
-	return ballBody.getGlobalBounds();
+	return ballPosition;
 }
 
 sf::RectangleShape Ball::getShape()
@@ -27,8 +27,8 @@ float Ball::getVelocityX()
 
 void Ball::boostSpeed()
 {
-	xspeed = xspeed * 1.2f;
-	yspeed = yspeed * 1.2f;
+	xspeed = xspeed + 0.5f;
+	yspeed = yspeed + 0.5f;
 }
 
 void Ball::sideBounce()

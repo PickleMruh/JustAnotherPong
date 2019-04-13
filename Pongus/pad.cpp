@@ -9,9 +9,9 @@ Pad::Pad(float startX, float startY)
 	padBody.setPosition(padPosition);
 }
 
-sf::FloatRect Pad::getPosition()
+sf::Vector2f Pad::getPosition()
 {
-	return padBody.getGlobalBounds();
+	return padPosition;
 }
 
 sf::RectangleShape Pad::getShape()
