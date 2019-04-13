@@ -25,7 +25,7 @@ float Ball::getVelocityX()
 	return xspeed;
 }
 
-float Ball::getBallDirection()
+int Ball::getBallDirection()
 {
 	return yDir;
 }

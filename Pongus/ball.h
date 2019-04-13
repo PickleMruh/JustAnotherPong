@@ -14,7 +14,7 @@ public:
 	sf::Vector2f getPosition();
 	sf::RectangleShape getShape();
 	float getVelocityX();
-	float getBallDirection();
+	int getBallDirection();
 
 	void boostSpeed();
 	void sideBounce();

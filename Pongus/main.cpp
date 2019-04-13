@@ -64,7 +64,7 @@ int main()
 			}
 
 			//AI movement
-			if (pilka.getBallDirection() < 0.f)
+			if (pilka.getBallDirection() < 0)
 			{
 				if ((pilka.getPosition().x + 5) > AIpal.getPosition().x + 50 )
 				{
@@ -75,9 +75,20 @@ int main()
 					AIpal.moveLeft();
 				}
 			}
+			else if ((AIpal.getPosition().x + 50) != windowWidthX / 2)
+			{
+				if (AIpal.getPosition().x + 50 > windowWidthX / 2)
+				{
+					AIpal.moveLeft();
+				}
+				if (AIpal.getPosition().x + 50 < windowWidthX / 2)
+				{
+					AIpal.moveRight();
+				}
+			}
 
 			//AI takeover
-			if (AI_ON && pilka.getBallDirection() > 0.f)
+			if (AI_ON && pilka.getBallDirection() > 0)
 			{
 				if ((pilka.getPosition().x + 5) > paletka.getPosition().x + 50)
 				{
@@ -88,9 +99,16 @@ int main()
 					paletka.moveLeft();
 				}
 			}
-			else if (AI_ON && paletka.getPosition().x != windowWidthX /2)
+			else if (AI_ON && (paletka.getPosition().x +50) != windowWidthX /2)
 			{
-
+				if (paletka.getPosition().x + 50 > windowWidthX / 2)
+				{
+					paletka.moveLeft();
+				}
+				if (paletka.getPosition().x + 50 < windowWidthX / 2)
+				{
+					paletka.moveRight();
+				}
 			}
 
 
