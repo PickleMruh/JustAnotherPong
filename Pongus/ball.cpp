@@ -25,6 +25,11 @@ float Ball::getVelocityX()
 	return xspeed;
 }
 
+float Ball::getBallDirection()
+{
+	return yDir;
+}
+
 void Ball::boostSpeed()
 {
 	xspeed = xspeed + 0.5f;
@@ -43,8 +48,11 @@ void Ball::padBounce()
 
 void Ball::hitBottom()
 {
-	ballPosition.y = 200;
+	ballPosition.y = 300;
 	ballPosition.x = 200;
+	xspeed = 1.5f;
+	yspeed = 1.5f;
+	yDir = 1;
 }
 
 void Ball::updatePosition()

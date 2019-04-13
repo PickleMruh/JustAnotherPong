@@ -4,6 +4,7 @@
 #include "ball.h"
 #include "pad.h"
 
+#define AI_ON true
 
 int main()
 {
@@ -15,6 +16,7 @@ int main()
 	int windowHeightY = 600;
 
 	Pad paletka(float(windowWidthX)/2, float(windowHeightY) - 50);
+	Pad AIpal(float(windowWidthX)/2, float(windowHeightY) - 550);
 	Ball pilka(float(windowWidthX) / 2, float(windowHeightY) /2);
 	//Mein Loop
 	sf::RenderWindow gameWindow(sf::VideoMode(windowWidthX, windowHeightY), "Classicus Pongus");
@@ -47,7 +49,7 @@ int main()
 
 			//Logic
 
-			if (pilka.getPosition().y > windowHeightY) //aut
+			if (pilka.getPosition().y > windowHeightY) //bottomaut
 			{
 				pilka.hitBottom();
 			}
@@ -56,14 +58,54 @@ int main()
 			{
 				pilka.sideBounce();
 			}
-			if (pilka.getPosition().y < 0) //topbounce
+			if (pilka.getPosition().y < 0) //topaut
 			{
-				pilka.padBounce();
+				pilka.hitBottom();
 			}
-			if ((pilka.getPosition().y +10) > paletka.getPosition().y) //hit the pad
+
+			//AI movement
+			if (pilka.getBallDirection() < 0.f)
+			{
+				if ((pilka.getPosition().x + 5) > AIpal.getPosition().x + 50 )
+				{
+					AIpal.moveRight();
+				}
+				if ((pilka.getPosition().x + 5) < AIpal.getPosition().x + 50)
+				{
+					AIpal.moveLeft();
+				}
+			}
+
+			//AI takeover
+			if (AI_ON && pilka.getBallDirection() > 0.f)
+			{
+				if ((pilka.getPosition().x + 5) > paletka.getPosition().x + 50)
+				{
+					paletka.moveRight();
+				}
+				if ((pilka.getPosition().x + 5) < paletka.getPosition().x + 50)
+				{
+					paletka.moveLeft();
+				}
+			}
+			else if (AI_ON && paletka.getPosition().x != windowWidthX /2)
+			{
+
+			}
+
+
+			if ((pilka.getPosition().y + 10) > paletka.getPosition().y) //hit the pad
 			{
 				if (pilka.getPosition().x + 10 > paletka.getPosition().x && pilka.getPosition().x < paletka.getPosition().x + 100)
 				{		
+					pilka.padBounce();
+					pilka.boostSpeed();
+				}
+			}
+			if (pilka.getPosition().y < AIpal.getPosition().y) //hit the AIpad
+			{
+				if (pilka.getPosition().x + 10 > AIpal.getPosition().x && pilka.getPosition().x < AIpal.getPosition().x + 100)
+				{
 
 					pilka.padBounce();
 					pilka.boostSpeed();
@@ -78,7 +120,16 @@ int main()
 				paletka.moveLeft();
 			}
 
+			if (AIpal.getPosition().x < 0)
+			{
+				AIpal.moveRight();
+			}
+			if (AIpal.getPosition().x + 95 > windowWidthX)
+			{
+				AIpal.moveLeft();
+			}
 
+			AIpal.updatePosition();
 			paletka.updatePosition();
 			pilka.updatePosition();
 
@@ -86,6 +137,7 @@ int main()
 		//Render
 		gameWindow.clear();
 		gameWindow.draw(paletka.getShape());
+		gameWindow.draw(AIpal.getShape());
 		gameWindow.draw(pilka.getShape());
 		gameWindow.display();
 
