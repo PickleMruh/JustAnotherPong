@@ -16,7 +16,7 @@ int main()
 	int windowHeightY = 600;
 
 	Pad paletka(float(windowWidthX)/2, float(windowHeightY) - 50);
-	Pad AIpal(float(windowWidthX)/2, float(windowHeightY) - 550);
+	Pad enemyPal(float(windowWidthX)/2, float(windowHeightY) - 550);
 	Ball pilka(float(windowWidthX) / 2, float(windowHeightY) /2);
 	//Mein Loop
 	sf::RenderWindow gameWindow(sf::VideoMode(windowWidthX, windowHeightY), "Classicus Pongus");
@@ -49,7 +49,7 @@ int main()
 
 			//Logic
 
-			if (pilka.getPosition().y > windowHeightY) //bottomaut
+			if (pilka.getPosition().y > windowHeightY) //bottomFail
 			{
 				pilka.hitBottom();
 			}
@@ -58,7 +58,7 @@ int main()
 			{
 				pilka.sideBounce();
 			}
-			if (pilka.getPosition().y < 0) //topaut
+			if (pilka.getPosition().y < 0) //topFail
 			{
 				pilka.hitBottom();
 			}
@@ -66,24 +66,24 @@ int main()
 			//AI movement
 			if (pilka.getBallDirection() < 0)
 			{
-				if ((pilka.getPosition().x + 5) > AIpal.getPosition().x + 50 )
+				if ((pilka.getPosition().x + 5) > enemyPal.getPosition().x + 50 )
 				{
-					AIpal.moveRight();
+					enemyPal.moveRight();
 				}
-				if ((pilka.getPosition().x + 5) < AIpal.getPosition().x + 50)
+				if ((pilka.getPosition().x + 5) < enemyPal.getPosition().x + 50)
 				{
-					AIpal.moveLeft();
+					enemyPal.moveLeft();
 				}
 			}
-			else if ((AIpal.getPosition().x + 50) != windowWidthX / 2)
+			else if ((enemyPal.getPosition().x + 50) != windowWidthX / 2)
 			{
-				if (AIpal.getPosition().x + 50 > windowWidthX / 2)
+				if (enemyPal.getPosition().x + 50 > windowWidthX / 2)
 				{
-					AIpal.moveLeft();
+					enemyPal.moveLeft();
 				}
-				if (AIpal.getPosition().x + 50 < windowWidthX / 2)
+				if (enemyPal.getPosition().x + 50 < windowWidthX / 2)
 				{
-					AIpal.moveRight();
+					enemyPal.moveRight();
 				}
 			}
 
@@ -116,16 +116,17 @@ int main()
 			{
 				if (pilka.getPosition().x + 10 > paletka.getPosition().x && pilka.getPosition().x < paletka.getPosition().x + 100)
 				{		
-					pilka.padBounce();
+					pilka.padBounce((pilka.getPosition().x + 5) - (paletka.getPosition().x + 50));
 					pilka.boostSpeed();
 				}
 			}
-			if (pilka.getPosition().y < AIpal.getPosition().y) //hit the AIpad
+			if (pilka.getPosition().y < enemyPal.getPosition().y) //hit the enemy pad
 			{
-				if (pilka.getPosition().x + 10 > AIpal.getPosition().x && pilka.getPosition().x < AIpal.getPosition().x + 100)
+				if (pilka.getPosition().x + 10 > enemyPal.getPosition().x && pilka.getPosition().x < enemyPal.getPosition().x + 100)
 				{
 
-					pilka.padBounce();
+					pilka.padBounce((pilka.getPosition().x + 5) - (enemyPal.getPosition().x + 50));
+					
 					pilka.boostSpeed();
 				}
 			}
@@ -138,16 +139,16 @@ int main()
 				paletka.moveLeft();
 			}
 
-			if (AIpal.getPosition().x < 0)
+			if (enemyPal.getPosition().x < 0)
 			{
-				AIpal.moveRight();
+				enemyPal.moveRight();
 			}
-			if (AIpal.getPosition().x + 95 > windowWidthX)
+			if (enemyPal.getPosition().x + 95 > windowWidthX)
 			{
-				AIpal.moveLeft();
+				enemyPal.moveLeft();
 			}
 
-			AIpal.updatePosition();
+			enemyPal.updatePosition();
 			paletka.updatePosition();
 			pilka.updatePosition();
 
@@ -155,7 +156,7 @@ int main()
 		//Render
 		gameWindow.clear();
 		gameWindow.draw(paletka.getShape());
-		gameWindow.draw(AIpal.getShape());
+		gameWindow.draw(enemyPal.getShape());
 		gameWindow.draw(pilka.getShape());
 		gameWindow.display();
 

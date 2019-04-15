@@ -18,7 +18,7 @@ public:
 
 	void boostSpeed();
 	void sideBounce();
-	void padBounce();
+	void padBounce(float);
 	void hitBottom();
 	void updatePosition();
 

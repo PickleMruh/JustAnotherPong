@@ -41,8 +41,37 @@ void Ball::sideBounce()
 	xDir = xDir * -1;
 }
 
-void Ball::padBounce()
+void Ball::padBounce(float value)
 {
+	float angle = value * float(xDir);
+	if (angle <= -40.0f)
+	{
+		xspeed *= 0.4f;
+	}
+	else if (angle > -40.0f && angle < -20.0f )
+	{
+		xspeed *= 0.6f;
+	}
+	else if (angle >= -20.0f && angle < -5.0f)
+	{
+		xspeed *= 0.8f;
+	}
+	else if (angle >= -5.0f && angle <= 5.0f)
+	{
+		xspeed *= 1.0f;
+	}
+	else if (angle > 5.0f && angle < 20.0f)
+	{
+		xspeed *= 1.2f;
+	}
+	else if (angle >= 20.0f && angle < 40.0f)
+	{
+		xspeed *= 1.4f;
+	}
+	else if (angle >= 40.0f)
+	{
+		xspeed *= 1.6f;
+	}
 	yDir = yDir * -1;
 }
 
