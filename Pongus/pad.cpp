@@ -33,3 +33,16 @@ void Pad::updatePosition()
 {
 	padBody.setPosition(padPosition);
 }
+
+void Pad::updateSpeed(float value)
+{
+	if (value > padSpeed)
+	{
+		padSpeed = value;
+	}
+}
+
+void Pad::resetSpeed()
+{
+	padSpeed = 10.0f;
+}

@@ -15,4 +15,6 @@ public:
 	void moveLeft();
 	void moveRight();
 	void updatePosition();
+	void updateSpeed(float);
+	void resetSpeed();
 };

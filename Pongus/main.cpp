@@ -4,13 +4,17 @@
 #include "ball.h"
 #include "pad.h"
 
-#define AI_ON true
+#define AI_ON false
+#define HardcoorMode true
+#define LOG_ON false
 
 int main()
 {
 	sf::Clock timer;
 	sf::Time accumulator = sf::Time::Zero;
 	sf::Time ups = sf::seconds(1.f / 60.f);
+
+
 
 	int windowWidthX = 400;
 	int windowHeightY = 600;
@@ -38,6 +42,21 @@ int main()
 		while (accumulator > ups)
 		{
 			accumulator -= ups;
+			if (HardcoorMode)
+			{
+				if (pilka.getVelocityX() > pilka.getVelocityY())
+				{
+					paletka.updateSpeed(pilka.getVelocityX());
+					enemyPal.updateSpeed(pilka.getVelocityX());
+				}
+				else
+				{
+					paletka.updateSpeed(pilka.getVelocityY());
+					enemyPal.updateSpeed(pilka.getVelocityY());
+				}
+
+			}
+
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			{
 				paletka.moveLeft();
@@ -52,15 +71,19 @@ int main()
 			if (pilka.getPosition().y > windowHeightY) //bottomFail
 			{
 				pilka.hitBottom();
+				paletka.resetSpeed();
+				enemyPal.resetSpeed();
 			}
 
-			if (pilka.getPosition().x < 0 || pilka.getPosition().x + 10 > windowWidthX) //side bounce
+			if ((pilka.getPosition().x < 2 && pilka.getBallDirectionX() < 0 ) || (pilka.getPosition().x + 10 > windowWidthX-2) && pilka.getBallDirectionX() > 0) //side bounce
 			{
 				pilka.sideBounce();
 			}
 			if (pilka.getPosition().y < 0) //topFail
 			{
 				pilka.hitBottom();
+				paletka.resetSpeed();
+				enemyPal.resetSpeed();
 			}
 
 			//AI movement
@@ -99,17 +122,22 @@ int main()
 					paletka.moveLeft();
 				}
 			}
-			else if (AI_ON && (paletka.getPosition().x +50) != windowWidthX /2)
+			else if (!(pilka.getVelocityX() > 30.0f || pilka.getVelocityY() > 30.0f))
 			{
-				if (paletka.getPosition().x + 50 > windowWidthX / 2)
+				if (AI_ON && (paletka.getPosition().x + 50) != windowWidthX / 2)
 				{
-					paletka.moveLeft();
-				}
-				if (paletka.getPosition().x + 50 < windowWidthX / 2)
-				{
-					paletka.moveRight();
+					if (paletka.getPosition().x + 50 > windowWidthX / 2)
+					{
+						paletka.moveLeft();
+					}
+					if (paletka.getPosition().x + 50 < windowWidthX / 2)
+					{
+						paletka.moveRight();
+					}
 				}
 			}
+				
+
 
 
 			if ((pilka.getPosition().y + 10) > paletka.getPosition().y) //hit the pad
@@ -159,6 +187,11 @@ int main()
 		gameWindow.draw(enemyPal.getShape());
 		gameWindow.draw(pilka.getShape());
 		gameWindow.display();
+
+		if (LOG_ON)
+		{
+		std::cout << pilka.getVelocityX() << " " << pilka.getVelocityY() << std::endl;
+		}
 
 		accumulator += timer.restart();
 	}

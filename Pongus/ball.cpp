@@ -1,4 +1,6 @@
+#include <stdlib.h>
 #include "ball.h"
+
 
 Ball::Ball(float startX, float startY)
 	:xDir(1), yDir(1)
@@ -25,15 +27,25 @@ float Ball::getVelocityX()
 	return xspeed;
 }
 
+float Ball::getVelocityY()
+{
+	return yspeed;
+}
+
 int Ball::getBallDirection()
 {
 	return yDir;
 }
 
+int Ball::getBallDirectionX()
+{
+	return xDir;
+}
+
 void Ball::boostSpeed()
 {
-	xspeed = xspeed + 0.5f;
-	yspeed = yspeed + 0.5f;
+	xspeed = xspeed + (float((rand()% 15 + 1)) / 10);
+	yspeed = yspeed + (float((rand()% 15 + 1)) / 10);
 }
 
 void Ball::sideBounce()
@@ -81,7 +93,7 @@ void Ball::hitBottom()
 	ballPosition.x = 200;
 	xspeed = 1.5f;
 	yspeed = 1.5f;
-	yDir = 1;
+	
 }
 
 void Ball::updatePosition()
